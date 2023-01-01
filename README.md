@@ -14,7 +14,7 @@ RUN npm install
 COPY src ./src
 
 ## port d'execution 
-EXPOSE 3000
+EXPOSE 4200
 
 # lancer la commande dockerfile
 ```
@@ -80,4 +80,47 @@ Error: connect ECONNREFUSED 0.0.0.0:3306
   fatal: true
 }
  ```
- 
+ # configuration de dockercompose
+ ```
+ version: '3.9'
+services:
+  app:
+    image: ma_super_app
+    ports:
+      - "3000:3000"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=mon_user
+      - MYSQL_PASSWORD=mon_password
+      - MYSQL_DATABASE=ma_base_de_donnees
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=mon_password_root
+      - MYSQL_USER=mon_user
+      - MYSQL_PASSWORD=mon_password
+      - MYSQL_DATABASE=ma_base_de_donnees
+ ```
+ mise en place de compose:
+ ```
+ docker-compose up
+[+] Running 12/12
+ - mysql Pulled                                                                                                    9.3s
+   - 0ed027b72ddc Pull complete                                                                                    2.3s
+   - 0296159747f1 Pull complete                                                                                    2.3s
+   - 3d2f9b664bd3 Pull complete                                                                                    2.4s
+   - df6519f81c26 Pull complete                                                                                    2.5s
+   - 36bb5e56d458 Pull complete                                                                                    2.6s
+   - 054e8fde88d0 Pull complete                                                                                    2.6s
+   - f2b494c50c7f Pull complete                                                                                    4.7s
+   - 132bc0d471b8 Pull complete                                                                                    4.7s
+   - 135ec7033a05 Pull complete                                                                                    6.6s
+   - 5961f0272472 Pull complete                                                                                    6.6s
+   - 75b5f7a3d3a4 Pull complete                                                                                    6.7s
+[+] Running 3/3
+ - Network tp-devops-2_default    Created                                                                          1.0s
+ - Container tp-devops-2-app-1    Created                                                                          0.6s
+ - Container tp-devops-2-mysql-1  Created                                                                          0.6s
+Attaching to tp-devops-2-app-1, tp-devops-2-mysql-1
+ ```
+
