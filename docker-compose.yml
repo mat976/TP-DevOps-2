@@ -1,7 +1,18 @@
 version: '3.9'
-  services:
-    node:
-      ...
-
-    mysql:
-      ...
+services:
+  app:
+    image: ma_super_app
+    ports:
+      - "3000:3000"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=mon_user
+      - MYSQL_PASSWORD=mon_password
+      - MYSQL_DATABASE=ma_base_de_donnees
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=mon_password_root
+      - MYSQL_USER=mon_user
+      - MYSQL_PASSWORD=mon_password
+      - MYSQL_DATABASE=ma_base_de_donnees
