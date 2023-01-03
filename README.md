@@ -14,7 +14,7 @@ RUN npm install
 COPY src ./src
 
 ## port d'execution 
-EXPOSE 4200
+EXPOSE 3000
 
 # lancer la commande dockerfile
 ```
